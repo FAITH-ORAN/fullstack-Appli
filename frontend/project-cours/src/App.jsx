@@ -14,7 +14,8 @@ const App = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/ajouter" element={<EntityHandler />} />
+            {/* Dynamic route for adding entities */}
+            <Route path="/ajouter/:entity" element={<EntityHandler />} />
           </Routes>
         </main>
         <Footer />
