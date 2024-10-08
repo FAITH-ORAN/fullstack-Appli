@@ -1,6 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ entityType, setEntityType }) => {
+  const navigate = useNavigate();
+
+  const handleSelectChange = (e) => {
+    const selectedEntity = e.target.value;
+    setEntityType(selectedEntity);
+    navigate(`/ajouter/${selectedEntity}`);
+  };
+
   return (
     <header className="bg-blue-600 text-white py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
@@ -11,7 +20,7 @@ const Header = ({ entityType, setEntityType }) => {
             Ajouter {entityType === 'course' ? 'un cours' : entityType === 'professor' ? 'un professeur' : 'un étudiant'}
           </h1>
           <select
-            onChange={(e) => setEntityType(e.target.value)}
+            onChange={handleSelectChange}
             value={entityType}
             className="bg-white text-blue-700 border border-white rounded-md px-4 py-2 font-semibold"
           >
