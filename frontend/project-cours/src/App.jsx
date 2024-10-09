@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import StudentPage from "./pages/StudentPage";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/students" element={<StudentPage />} />
             {/* Dynamic route for adding entities */}
             <Route path="/ajouter/:entity" element={<EntityHandler />} />
           </Routes>
