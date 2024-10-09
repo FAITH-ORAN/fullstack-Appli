@@ -3,39 +3,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../../axiosInstance';
 import Pagination from '../common/Pagination';
+import SkeletonLoader from '../common/SkeletonLoader';
 
 const CourseListing = () => {
   const [courses, setCourses] = useState([]);
   const [professors, setProfessors] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axiosInstance.get('courses');
-        setCourses(response.data || []);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des cours:', error);
-        setCourses([]);
-      }
-    };
+        const courseResponse = await axiosInstance.get('courses');
+        setCourses(courseResponse.data || []);
 
-    const fetchProfessors = async () => {
-      try {
-        const response = await axiosInstance.get('professors');
-        setProfessors(response.data || []);
+        const professorResponse = await axiosInstance.get('professors');
+        setProfessors(professorResponse.data || []);
+
+        setLoading(false);
       } catch (error) {
-        console.error('Erreur lors de la récupération des professeurs:', error);
-        setProfessors([]);
+        console.error('Erreur lors de la récupération des données:', error);
+        setLoading(false);
       }
     };
 
     fetchCourses();
-    fetchProfessors();
   }, []);
-
-  // Function to map professor IDs to their names
   const getProfessorNames = (professorIds) => {
     const names = professors
       .filter((professor) => professorIds.includes(professor.id))
@@ -64,55 +58,60 @@ const CourseListing = () => {
             Ajouter un cours
           </button>
         </div>
-        <br />
-        <table className="text-[22px] w-[85%] mx-auto border-collapse text-blue-700">
-          <thead>
-            <tr>
-              <th className="border-2 border-grey w-[18%]">Nom du cours :</th>
-              <th className="border-2 border-grey w-[23%]">Nom du professeur :</th>
-              <th className="border-2 border-grey w-[15%]">Coefficient :</th>
-              <th className="border-2 border-grey w-[44%]">Description :</th>
-              <th colSpan={2}></th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentCourses && currentCourses.length > 0 ? (
-              currentCourses.map((course) => (
-                <tr key={course.id}>
-                  <td className="border-2 border-grey pl-2">
-                    {course.courseName}
-                  </td>
-                  <td className="border-2 border-grey pl-2">
-                    {/* Use getProfessorNames to map professorIds to professor names */}
-                    {getProfessorNames(course.professorIds)}
-                  </td>
-                  <td className="border-2 border-grey pl-2">
-                    {course.coef}
-                  </td>
-                  <td className="border-2 border-grey pl-2">
-                    {course.description}
-                  </td>
-                  <td className="cursor-pointer p-[5px]">
-                    <FontAwesomeIcon icon={faPencilAlt} />
-                  </td>
-                  <td className="p-[5px] cursor-pointer text-red-700 hover:text-red-500">
-                    <FontAwesomeIcon icon={faTrash} />
-                  </td>
+
+        {loading ? (
+          <SkeletonLoader />
+        ) : (
+          <>
+            <table className="text-[22px] w-[85%] mx-auto border-collapse text-blue-700">
+              <thead>
+                <tr>
+                  <th className="border-2 border-grey w-[18%]">Nom du cours :</th>
+                  <th className="border-2 border-grey w-[23%]">Nom du professeur :</th>
+                  <th className="border-2 border-grey w-[15%]">Coefficient :</th>
+                  <th className="border-2 border-grey w-[44%]">Description :</th>
+                  <th colSpan={2}></th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={6} className="text-center">Aucun cours disponible.</td>
-              </tr>
+              </thead>
+              <tbody>
+                {currentCourses && currentCourses.length > 0 ? (
+                  currentCourses.map((course) => (
+                    <tr key={course.id}>
+                      <td className="border-2 border-grey pl-2">
+                        {course.courseName}
+                      </td>
+                      <td className="border-2 border-grey pl-2">
+                        {getProfessorNames(course.professorIds)}
+                      </td>
+                      <td className="border-2 border-grey pl-2">
+                        {course.coef}
+                      </td>
+                      <td className="border-2 border-grey pl-2">
+                        {course.description}
+                      </td>
+                      <td className="cursor-pointer p-[5px]">
+                        <FontAwesomeIcon icon={faPencilAlt} />
+                      </td>
+                      <td className="p-[5px] cursor-pointer text-red-700 hover:text-red-500">
+                        <FontAwesomeIcon icon={faTrash} />
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={6} className="text-center">Aucun cours disponible.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+            {totalPages > 1 && (
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
             )}
-          </tbody>
-        </table>
-        {totalPages > 1 && (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+          </>
         )}
       </div>
     </div>
