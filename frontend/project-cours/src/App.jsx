@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import EntityHandler from './components/EntityHandler';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import CourseListPage from './pages/CourseListPage';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             {/* Dynamic route for adding entities */}
             <Route path="/ajouter/:entity" element={<EntityHandler />} />
+            <Route path="/cours" element={<CourseListPage />} />
           </Routes>
         </main>
         <Footer />
