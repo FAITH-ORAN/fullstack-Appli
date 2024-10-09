@@ -38,7 +38,7 @@ const ProfessorListing = () => {
                     {professors.map((professor) => (
                         <tr key={professor.id}>
 
-                            {/* Utilisation d'une icône neutre pour les professeurs */}
+
                             <td className="border-2 border-grey text-center p-4">
                                 <img
                                     src="https://cdn-icons-png.flaticon.com/512/747/747376.png"
