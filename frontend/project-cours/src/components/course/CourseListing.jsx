@@ -6,6 +6,7 @@ import Pagination from '../common/Pagination';
 
 const CourseListing = () => {
   const [courses, setCourses] = useState([]);
+  const [professors, setProfessors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
@@ -20,8 +21,27 @@ const CourseListing = () => {
       }
     };
 
+    const fetchProfessors = async () => {
+      try {
+        const response = await axiosInstance.get('professors');
+        setProfessors(response.data || []);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des professeurs:', error);
+        setProfessors([]);
+      }
+    };
+
     fetchCourses();
+    fetchProfessors();
   }, []);
+
+  // Function to map professor IDs to their names
+  const getProfessorNames = (professorIds) => {
+    const names = professors
+      .filter((professor) => professorIds.includes(professor.id))
+      .map((professor) => `${professor.firstName} ${professor.lastName}`);
+    return names.join(', ');
+  };
 
   // Calculate pagination details
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -63,7 +83,8 @@ const CourseListing = () => {
                     {course.courseName}
                   </td>
                   <td className="border-2 border-grey pl-2">
-                    {course.professors?.map(prof => prof.firstName + ' ' + prof.lastName).join(', ')}
+                    {/* Use getProfessorNames to map professorIds to professor names */}
+                    {getProfessorNames(course.professorIds)}
                   </td>
                   <td className="border-2 border-grey pl-2">
                     {course.coef}
