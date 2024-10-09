@@ -13,7 +13,7 @@ const Header = ({ entityType, setEntityType }) => {
   return (
     <header className="bg-blue-600 text-white py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
-        <h1 className="text-2xl font-bold">My Application</h1>
+        <h1 className="text-2xl font-bold">My School</h1>
 
         <div className="flex items-center">
           <h1 className="text-lg font-semibold mr-4">
