@@ -4,7 +4,9 @@ import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../../axiosInstance';
 import Pagination from '../common/Pagination';
 import EditCourseModal from '../Modal/EditCourseModal';
-import SkeletonLoader from '../common/SkeletonLoader'
+import SkeletonLoader from '../common/SkeletonLoader';
+import { toast } from 'react-toastify';
+import ToastConfig from '../../ToastConfig';
 
 const CourseListing = () => {
   const [courses, setCourses] = useState([]);
@@ -35,7 +37,6 @@ const CourseListing = () => {
     fetchData();
   }, []);
 
-  // Open the edit modal
   const handleEditClick = (course) => {
     setSelectedCourse(course);
     setIsEditModalOpen(true);
@@ -56,8 +57,24 @@ const CourseListing = () => {
       );
 
       handleCloseModal();
+      toast.success('Succès : Le cours a été mis à jour avec succès!', ToastConfig);
     } catch (error) {
       console.error('Erreur lors de la mise à jour du cours:', error);
+      toast.error('Erreur : La mise à jour du cours a échoué.', ToastConfig);
+    }
+  };
+
+  const handleDeleteClick = async (courseId) => {
+    const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce cours ?");
+    if (!confirmDelete) return;
+
+    try {
+      await axiosInstance.delete(`courses/${courseId}`);
+      setCourses((prevCourses) => prevCourses.filter((course) => course.id !== courseId));
+      toast.success('Succès : Le cours a été supprimé avec succès!', ToastConfig);
+    } catch (error) {
+      console.error('Erreur lors de la suppression du cours:', error);
+      toast.error('Erreur : Échec de la suppression du cours.', ToastConfig);
     }
   };
 
@@ -119,7 +136,10 @@ const CourseListing = () => {
                       >
                         <FontAwesomeIcon icon={faPencilAlt} />
                       </td>
-                      <td className="p-[5px] cursor-pointer text-red-700 hover:text-red-500">
+                      <td
+                        className="p-[5px] cursor-pointer text-red-700 hover:text-red-500"
+                        onClick={() => handleDeleteClick(course.id)}
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </td>
                     </tr>
