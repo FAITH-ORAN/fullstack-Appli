@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import EntityForm from './common/EntityForm';
 import Header from './Header';
 import axiosInstance from '../axiosInstance';
+import { toast } from 'react-toastify';
+import ToastConfig from '../ToastConfig';
 
 const EntityHandler = () => {
-  const [entityType, setEntityType] = useState('course');
+  const { entity } = useParams();
+  const [entityType, setEntityType] = useState(entity || 'course');
+
+  useEffect(() => {
+    setEntityType(entity);
+  }, [entity]);
 
   const handleFormSubmit = (formData) => {
     axiosInstance.post(`${entityType}s`, formData)
       .then((response) => {
         console.log('Succès:', response.data);
+        toast.success('Succès : Données envoyées avec succès!', ToastConfig);
       })
       .catch((error) => {
         console.error('Erreur:', error);
+        toast.error('Erreur : Quelque chose s\'est mal passé', ToastConfig);
       });
   };
 
