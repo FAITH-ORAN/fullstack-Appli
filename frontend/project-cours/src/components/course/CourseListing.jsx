@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../../axiosInstance';
 import Pagination from '../common/Pagination';
-import SkeletonLoader from '../common/SkeletonLoader';
+import EditCourseModal from '../Modal/EditCourseModal';
+import SkeletonLoader from '../common/SkeletonLoader'
 
 const CourseListing = () => {
   const [courses, setCourses] = useState([]);
@@ -11,16 +12,19 @@ const CourseListing = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchData = async () => {
       try {
-        const courseResponse = await axiosInstance.get('courses');
+        const [courseResponse, professorResponse] = await Promise.all([
+          axiosInstance.get('courses'),
+          axiosInstance.get('professors')
+        ]);
+
         setCourses(courseResponse.data || []);
-
-        const professorResponse = await axiosInstance.get('professors');
         setProfessors(professorResponse.data || []);
-
         setLoading(false);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
@@ -28,8 +32,35 @@ const CourseListing = () => {
       }
     };
 
-    fetchCourses();
+    fetchData();
   }, []);
+
+  // Open the edit modal
+  const handleEditClick = (course) => {
+    setSelectedCourse(course);
+    setIsEditModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedCourse(null);
+  };
+
+  const handleSave = async (updatedData) => {
+    try {
+      const response = await axiosInstance.put(`courses/${selectedCourse.id}`, updatedData);
+      const updatedCourse = response.data;
+
+      setCourses((prevCourses) =>
+        prevCourses.map((course) => (course.id === updatedCourse.id ? updatedCourse : course))
+      );
+
+      handleCloseModal();
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du cours:', error);
+    }
+  };
+
   const getProfessorNames = (professorIds) => {
     const names = professors
       .filter((professor) => professorIds.includes(professor.id))
@@ -37,7 +68,6 @@ const CourseListing = () => {
     return names.join(', ');
   };
 
-  // Calculate pagination details
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
@@ -60,7 +90,7 @@ const CourseListing = () => {
         </div>
 
         {loading ? (
-          <SkeletonLoader />
+          <div><SkeletonLoader /></div>
         ) : (
           <>
             <table className="text-[22px] w-[85%] mx-auto border-collapse text-blue-700">
@@ -77,19 +107,16 @@ const CourseListing = () => {
                 {currentCourses && currentCourses.length > 0 ? (
                   currentCourses.map((course) => (
                     <tr key={course.id}>
-                      <td className="border-2 border-grey pl-2">
-                        {course.courseName}
-                      </td>
+                      <td className="border-2 border-grey pl-2">{course.courseName}</td>
                       <td className="border-2 border-grey pl-2">
                         {getProfessorNames(course.professorIds)}
                       </td>
-                      <td className="border-2 border-grey pl-2">
-                        {course.coef}
-                      </td>
-                      <td className="border-2 border-grey pl-2">
-                        {course.description}
-                      </td>
-                      <td className="cursor-pointer p-[5px]">
+                      <td className="border-2 border-grey pl-2">{course.coef}</td>
+                      <td className="border-2 border-grey pl-2">{course.description}</td>
+                      <td
+                        className="cursor-pointer p-[5px]"
+                        onClick={() => handleEditClick(course)}
+                      >
                         <FontAwesomeIcon icon={faPencilAlt} />
                       </td>
                       <td className="p-[5px] cursor-pointer text-red-700 hover:text-red-500">
@@ -104,6 +131,7 @@ const CourseListing = () => {
                 )}
               </tbody>
             </table>
+
             {totalPages > 1 && (
               <Pagination
                 totalPages={totalPages}
@@ -114,6 +142,16 @@ const CourseListing = () => {
           </>
         )}
       </div>
+
+      {/* Show the edit modal when isEditModalOpen is true */}
+      {isEditModalOpen && (
+        <EditCourseModal
+          course={selectedCourse}
+          allProfessors={professors}
+          onClose={handleCloseModal}
+          onSave={handleSave}
+        />
+      )}
     </div>
   );
 };
