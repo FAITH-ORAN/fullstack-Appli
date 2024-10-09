@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../../axiosInstance';
-
+import Pagination from '../common/Pagination';
 
 const CourseListing = () => {
   const [courses, setCourses] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -20,6 +22,16 @@ const CourseListing = () => {
 
     fetchCourses();
   }, []);
+
+  // Calculate pagination details
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(courses.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="bg-blue-100 h-screen w-screen flex items-center justify-center">
@@ -44,8 +56,8 @@ const CourseListing = () => {
             </tr>
           </thead>
           <tbody>
-            {courses && courses.length > 0 ? (
-              courses.map((course) => (
+            {currentCourses && currentCourses.length > 0 ? (
+              currentCourses.map((course) => (
                 <tr key={course.id}>
                   <td className="border-2 border-grey pl-2">
                     {course.courseName}
@@ -74,6 +86,13 @@ const CourseListing = () => {
             )}
           </tbody>
         </table>
+        {totalPages > 1 && (
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
     </div>
   );
