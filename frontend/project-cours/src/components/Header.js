@@ -1,13 +1,17 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import EntityFormModal from './Modal/EntityFormModal';
 
 const Header = ({ entityType, setEntityType }) => {
-  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSelectChange = (e) => {
     const selectedEntity = e.target.value;
     setEntityType(selectedEntity);
-    navigate(`/ajouter/${selectedEntity}`);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -30,6 +34,11 @@ const Header = ({ entityType, setEntityType }) => {
           </select>
         </div>
       </div>
+
+      {/* Modal to add entity */}
+      {isModalOpen && (
+        <EntityFormModal entityType={entityType} onClose={handleCloseModal} />
+      )}
     </header>
   );
 };

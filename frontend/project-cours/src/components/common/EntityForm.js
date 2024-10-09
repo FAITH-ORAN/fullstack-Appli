@@ -24,7 +24,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="courseName"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -34,7 +34,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="number"
                 name="coef"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -44,7 +44,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="description"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
               />
             </div>
           </>
@@ -58,7 +58,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="firstName"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -68,7 +68,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="lastName"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -78,7 +78,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="email"
                 name="email"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -88,7 +88,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="phone"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
               />
             </div>
           </>
@@ -102,7 +102,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="firstName"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -112,7 +112,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="lastName"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -122,7 +122,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="email"
                 name="email"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
@@ -132,7 +132,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="phone"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
               />
             </div>
             <div className="mb-4">
@@ -141,7 +141,7 @@ const EntityForm = ({ entityType, onSubmit }) => {
                 type="text"
                 name="className"
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" // added text-black
                 required
               />
             </div>
