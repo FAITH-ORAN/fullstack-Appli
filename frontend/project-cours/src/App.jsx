@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import StudentPage from "./pages/StudentPage";
+import ProfessorPage from "./pages/ProfessorPage";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/students" element={<StudentPage />} />
+            <Route path="/professors" element={<ProfessorPage />} />
             {/* Dynamic route for adding entities */}
             <Route path="/ajouter/:entity" element={<EntityHandler />} />
           </Routes>
