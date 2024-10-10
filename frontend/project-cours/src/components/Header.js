@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EntityFormModal from './Modal/EntityFormModal';
 
 const Header = ({ entityType, setEntityType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSelectChange = (e) => {
     const selectedEntity = e.target.value;
@@ -14,10 +16,19 @@ const Header = ({ entityType, setEntityType }) => {
     setIsModalOpen(false);
   };
 
+  const handleLogoClick = () => {
+    navigate('/');  // Redirect to the home page when the title is clicked
+  };
+
   return (
     <header className="bg-blue-600 text-white py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
-        <h1 className="text-2xl font-bold">My School</h1>
+        <h1
+          className="text-2xl font-bold cursor-pointer"
+          onClick={handleLogoClick}
+        >
+          My School
+        </h1>
 
         <div className="flex items-center">
           <h1 className="text-lg font-semibold mr-4">

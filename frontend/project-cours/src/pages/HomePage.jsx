@@ -19,21 +19,21 @@ function HomePage() {
             </section>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 mt-16 mx-auto w-11/12 max-w-6xl">
-                <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3" onClick={handleClick}>
+                <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3 cursor-pointer" onClick={handleClick}>
                     <h3 className="text-2xl font-bold text-blue-700 mb-4">Voir les Cours</h3>
                     <p className="text-gray-600">
                         Accédez et gérez facilement les cours disponibles pour les étudiants.
                     </p>
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3">
+                <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3 cursor-pointer">
                     <h3 className="text-2xl font-bold text-blue-700 mb-4">Voir les Élèves</h3>
                     <p className="text-gray-600">
                         Accédez ou gérez rapidement et simplement les étudiants disponibles.
                     </p>
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3">
+                <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3 cursor-pointer">
                     <h3 className="text-2xl font-bold text-blue-700 mb-4">Voir les Professeurs</h3>
                     <p className="text-gray-600">
                         Accédez ou gérer les professeurs et faciliter la coordination des cours.
