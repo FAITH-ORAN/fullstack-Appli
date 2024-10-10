@@ -97,13 +97,10 @@ const CourseListing = () => {
   return (
     <div className="bg-blue-100 h-screen w-screen flex items-center justify-center">
       <div className="bg-white w-3/4 h-2/3 rounded-lg p-8 overflow-auto flex flex-col">
-        <div className="flex items-center justify-between mb-4 h-16">
+        <div className="flex items-center mb-4 h-16">
           <h1 className="text-4xl font-bold text-blue-700 mx-auto">
             Liste des cours :
           </h1>
-          <button className="text-xl bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-            Ajouter un cours
-          </button>
         </div>
 
         {loading ? (

@@ -27,16 +27,16 @@ function HomePage() {
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3">
-                    <h3 className="text-2xl font-bold text-blue-700 mb-4">Gérer les Élèves</h3>
+                    <h3 className="text-2xl font-bold text-blue-700 mb-4">Voir les Élèves</h3>
                     <p className="text-gray-600">
-                        Ajouter ou gérer les étudiants inscrits à vos cours rapidement et simplement.
+                        Accédez ou gérez rapidement et simplement les étudiants disponibles.
                     </p>
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-3">
-                    <h3 className="text-2xl font-bold text-blue-700 mb-4">Gérer les Professeurs</h3>
+                    <h3 className="text-2xl font-bold text-blue-700 mb-4">Voir les Professeurs</h3>
                     <p className="text-gray-600">
-                        Ajouter ou gérer les professeurs et faciliter la coordination des cours.
+                        Accédez ou gérer les professeurs et faciliter la coordination des cours.
                     </p>
                 </div>
             </div>

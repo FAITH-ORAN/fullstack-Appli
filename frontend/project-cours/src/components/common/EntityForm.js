@@ -37,6 +37,20 @@ const EntityForm = ({ entityType, onSubmit }) => {
     onSubmit(formData);
   };
 
+  // Function to generate the dynamic title based on the entityType
+  const getTitle = () => {
+    switch (entityType) {
+      case 'course':
+        return 'Ajouter un cours';
+      case 'professor':
+        return 'Ajouter un professeur';
+      case 'student':
+        return 'Ajouter un étudiant';
+      default:
+        return 'Ajouter une entité';
+    }
+  };
+
   const renderFields = () => {
     switch (entityType) {
       case 'course':
@@ -157,7 +171,13 @@ const EntityForm = ({ entityType, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 max-w-5xl w-full mx-8">
+      {/* Title displaying which form is being shown */}
+      <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">
+        {getTitle()}
+      </h2>
+
       {renderFields()}
+
       <button
         type="submit"
         className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
