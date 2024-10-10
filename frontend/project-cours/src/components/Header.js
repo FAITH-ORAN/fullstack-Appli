@@ -21,21 +21,20 @@ const Header = ({ entityType, setEntityType }) => {
 
         <div className="flex items-center">
           <h1 className="text-lg font-semibold mr-4">
-            Ajouter {entityType === 'course' ? 'un cours' : entityType === 'professor' ? 'un professeur' : 'un étudiant'}
+            Ajouter un
           </h1>
           <select
             onChange={handleSelectChange}
-            value={entityType}
+            value={entityType || ''}
             className="bg-white text-blue-700 border border-white rounded-md px-4 py-2 font-semibold"
           >
+            <option value="" disabled>Sélectionner</option>
             <option value="course">Cours</option>
             <option value="professor">Professeur</option>
             <option value="student">Étudiant</option>
           </select>
         </div>
       </div>
-
-      {/* Modal to add entity */}
       {isModalOpen && (
         <EntityFormModal entityType={entityType} onClose={handleCloseModal} />
       )}
